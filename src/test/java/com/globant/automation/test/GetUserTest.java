@@ -2,7 +2,6 @@ package com.globant.automation.test;
 
 import com.globant.automation.config.TestRunner;
 import com.globant.automation.model.ApiResponseDTO;
-import com.globant.automation.model.PetDTO;
 import com.globant.automation.model.UserDTO;
 import com.globant.automation.request.RequestBuilder;
 import io.restassured.response.Response;
@@ -11,7 +10,6 @@ import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
