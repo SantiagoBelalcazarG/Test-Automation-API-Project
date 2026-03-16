@@ -8,6 +8,8 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpHeaders;
 import org.apache.http.entity.ContentType;
 
+import java.util.Map;
+
 public class RequestBuilder {
 
     private static final String API_KEY_HEADER = "api_key";
@@ -25,6 +27,25 @@ public class RequestBuilder {
         }
 
         return requestSpecification.post(path);
+    }
+
+    public static Response getRequest(String baseurl, String path, Map<String, Object> queryparams, String apikey) {
+        RequestSpecification requestSpecification = RestAssured.given()
+                .baseUri(baseurl)
+                .basePath(path)
+                .header(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter());
+
+        if (queryparams != null){
+            requestSpecification.queryParams(queryparams);
+        }
+
+        if (apikey != null){
+            requestSpecification.header(API_KEY_HEADER, apikey);
+        }
+
+        return requestSpecification.get();
     }
 
 }
