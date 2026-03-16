@@ -14,7 +14,7 @@ public class RequestBuilder {
 
     private static final String API_KEY_HEADER = "api_key";
 
-    public static Response postResquest(String baseurl, String path, Object body, String apikey){
+    public static Response postRequest(String baseurl, String path, Object body, String apikey){
         RequestSpecification requestSpecification = RestAssured.given()
                 .baseUri(baseurl)
                 .body(body)

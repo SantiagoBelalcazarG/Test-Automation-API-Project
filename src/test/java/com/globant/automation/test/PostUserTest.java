@@ -15,7 +15,7 @@ public class PostUserTest extends TestRunner {
     @Test(testName = "Validate user creation")
     public void createUserTest(){
         UserDTO userDTO = UserDTO.builder()
-                .id(1L)
+                .id(1000L)
                 .username("santiagojb")
                 .password("1234test")
                 .firstName("santiago")
@@ -23,7 +23,7 @@ public class PostUserTest extends TestRunner {
                 .email("santiago@test.com")
                 .build();
 
-        Response response = RequestBuilder.postResquest(getBaseurl(), "/user", userDTO, getApikey());
+        Response response = RequestBuilder.postRequest(getBaseurl(), "/user", userDTO, getApikey());
         ApiResponseDTO apiResponseDTO = response.as(ApiResponseDTO.class);
 
         assertEquals(response.getStatusCode(), 200, "The status code doesn't match.");
