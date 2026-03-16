@@ -19,7 +19,7 @@ public class GetPetTest extends TestRunner {
 
     private Long petId;
 
-    @BeforeTest
+    @BeforeTest(description = "Creates a pet before executing the tests to ensure a valid petId exists")
     public void setup(){
         petId = System.currentTimeMillis();
 
@@ -49,7 +49,7 @@ public class GetPetTest extends TestRunner {
         for (PetDTO pet : petsResponseDTO){assertEquals(pet.getStatus(), "available", "The pet status should be available");}
     }
 
-    @Test(testName = "Varify pet is found by id")
+    @Test(testName = "Verify pet is found by id")
     public void petByIdTest(){
         Response response = RequestBuilder.getRequest(getBaseurl(), "/pet/" + petId, null, getApikey());
         PetDTO petResponseDTO = response.as(PetDTO.class);

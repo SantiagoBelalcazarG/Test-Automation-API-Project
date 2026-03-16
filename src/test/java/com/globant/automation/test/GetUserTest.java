@@ -18,7 +18,7 @@ public class GetUserTest extends TestRunner {
 
     private Long userId;
 
-    @BeforeTest
+    @BeforeTest(description = "Creates a user before executing the tests to ensure a valid user exists")
     public void setup(){
         userId = System.currentTimeMillis();
 

@@ -15,7 +15,7 @@ public class PostStoreTest extends TestRunner {
 
     private Long petId;
 
-    @BeforeTest
+    @BeforeTest(description = "Creates a pet before executing the tests to ensure a valid petId exists")
     public void setup(){
         petId = System.currentTimeMillis();
 

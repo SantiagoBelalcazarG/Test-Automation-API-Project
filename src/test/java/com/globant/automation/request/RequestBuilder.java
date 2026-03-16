@@ -14,6 +14,15 @@ public class RequestBuilder {
 
     private static final String API_KEY_HEADER = "api_key";
 
+    /**
+     * Sens a POST request to the specified endpoint.
+     *
+     * @param baseurl Base URL of the API
+     * @param path Endpoint path
+     * @param body Request body to be serialized to JSON
+     * @param apikey API key used for authentication
+     * @return Response returned by the API
+     */
     public static Response postRequest(String baseurl, String path, Object body, String apikey){
         RequestSpecification requestSpecification = RestAssured.given()
                 .baseUri(baseurl)
@@ -29,6 +38,15 @@ public class RequestBuilder {
         return requestSpecification.post(path);
     }
 
+    /**
+     * Sends a GET request to the specified endpoint.
+     *
+     * @param baseurl Base URL of the API
+     * @param path Endpoint path
+     * @param queryparams Optional query parameters
+     * @param apikey API key used for authentication
+     * @return Response returned by the API
+     */
     public static Response getRequest(String baseurl, String path, Map<String, Object> queryparams, String apikey) {
         RequestSpecification requestSpecification = RestAssured.given()
                 .baseUri(baseurl)
