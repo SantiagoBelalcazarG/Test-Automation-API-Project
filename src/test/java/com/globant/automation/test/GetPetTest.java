@@ -1,0 +1,44 @@
+package com.globant.automation.test;
+
+import com.globant.automation.config.TestRunner;
+import com.globant.automation.model.PetDTO;
+import com.globant.automation.request.RequestBuilder;
+import io.restassured.common.mapper.TypeRef;
+import io.restassured.response.Response;
+import org.testng.annotations.Test;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+
+public class GetPetTest extends TestRunner {
+
+    @Test(testName = "Verify pets with available status are found")
+    public void petAvailableTest() {
+        Map<String, Object> queryparams = new HashMap<>();
+        queryparams.put("status", "available");
+
+        Response response = RequestBuilder.getRequest(getBaseurl(), "/pet/findByStatus", queryparams, getApikey());
+        List<PetDTO> petsResponseDTO = response.as(new TypeRef<List<PetDTO>>() {});
+
+        assertEquals(response.getStatusCode(), 200, "The status code doesn't match.");
+        assertNotNull(petsResponseDTO, "The pets list should not be null.");
+        for (PetDTO pet : petsResponseDTO){assertEquals(pet.getStatus(), "available", "The pet status should be available");}
+    }
+
+    @Test(testName = "Varify pet is found by id")
+    public void petByIdTest(){
+        Response response = RequestBuilder.getRequest(getBaseurl(), "/pet/4448180", null, getApikey());
+        PetDTO petResponseDTO = response.as(PetDTO.class);
+
+        assertEquals(response.getStatusCode(), 200, "The status code doesn't match.");
+        assertNotNull(petResponseDTO, "The pet response should not be null.");
+        assertEquals(petResponseDTO.getId(), Long.valueOf(4448180), "The pet id should match.");
+        assertEquals(petResponseDTO.getName(), "Sirko", "The pet name should match");
+        assertEquals(petResponseDTO.getStatus(), "available", "The pet status should match");
+    }
+    
+}
