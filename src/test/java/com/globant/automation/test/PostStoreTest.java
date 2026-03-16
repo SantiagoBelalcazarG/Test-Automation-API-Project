@@ -17,8 +17,10 @@ public class PostStoreTest extends TestRunner {
 
     @BeforeTest
     public void setup(){
+        petId = System.currentTimeMillis();
+
         PetDTO petDTO = PetDTO.builder()
-                .id(9999999L)
+                .id(petId)
                 .name("test")
                 .status("available")
                 .build();
@@ -27,7 +29,7 @@ public class PostStoreTest extends TestRunner {
         PetDTO pet = response.as(PetDTO.class);
 
         assertEquals(response.getStatusCode(), 200, "The status code doesn't match.");
-        petId = pet.getId();
+        assertEquals(pet.getId(), petId, "The pet id should match.");
     }
 
     @Test(testName = "Validate store order creation")

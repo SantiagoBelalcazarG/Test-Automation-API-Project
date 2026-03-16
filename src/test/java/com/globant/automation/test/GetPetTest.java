@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -21,8 +22,10 @@ public class GetPetTest extends TestRunner {
 
     @BeforeTest
     public void setup(){
+        petId = System.currentTimeMillis();
+
         PetDTO petDTO = PetDTO.builder()
-                .id(9999999L)
+                .id(petId)
                 .name("test")
                 .status("available")
                 .build();
@@ -31,7 +34,7 @@ public class GetPetTest extends TestRunner {
         PetDTO pet = response.as(PetDTO.class);
 
         assertEquals(response.getStatusCode(), 200, "The status code doesn't match.");
-        petId = pet.getId();
+        assertEquals(pet.getId(), petId, "The pet id should match.");
     }
 
     @Test(testName = "Verify pets with available status are found")
